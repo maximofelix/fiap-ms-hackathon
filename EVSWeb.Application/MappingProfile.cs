@@ -15,6 +15,7 @@ namespace EVSWeb.Application
         {
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Product, CreatedProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
         }
     }
 }
