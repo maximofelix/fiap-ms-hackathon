@@ -1,0 +1,33 @@
+﻿version: '3.8'
+
+services:
+  # Contêiner do SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=sql@Master
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    networks:
+      - minha-rede
+
+  # Contêiner da API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - minha-rede
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=evsdb;User Id=SA;Password=sql@Master;TrustServerCertificate=True;
+
+# Rede compartilhada
+networks:
+  minha-rede:
+    driver: bridge

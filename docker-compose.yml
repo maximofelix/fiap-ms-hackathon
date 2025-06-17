@@ -1,0 +1,46 @@
+﻿version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-evs
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=sql@Master
+      - MSSQL_DB=evsdb
+    ports:
+      - "1433:1433"
+    #volumes:
+    #  - sqlserver_data:/var/opt/mssql
+    networks:
+      - minha-rede
+    #healthcheck:
+    #  test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MinhaSenh@123" -Q "SELECT 1" || exit 1
+    #  interval: 10s
+    #  timeout: 3s
+    #  retries: 10
+    #  start_period: 10s
+
+  evsapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: evsapi-container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver #:
+        #condition: service_healthy
+    networks:
+      - minha-rede
+    restart: unless-stopped
+
+networks:
+  minha-rede:
+    driver: bridge
+
+#volumes:
+#  sqlserver_data:
