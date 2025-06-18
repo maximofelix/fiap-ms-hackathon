@@ -10,9 +10,9 @@ namespace EVSWeb.Domain.Entities
 {
     public class Category : BaseEntity
     {
-        [StringLength(20)]
+        //[StringLength(20)]
         public string Name { get; set; } = string.Empty;
-        [StringLength(255)]
+        //[StringLength(255)]
         public string? Description { get; set; } 
 
         [InverseProperty("Category")]

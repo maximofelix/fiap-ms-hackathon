@@ -20,20 +20,26 @@ namespace EVSWeb.Infrastructure
             modelBuilder.Entity<Unit>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.HasMany(e => e.Products)
-                      .WithOne(e => e.Unit)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(e => e.Name).HasMaxLength(20).IsRequired();
+                entity.HasMany(e => e.Products).WithOne(e => e.Unit).OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.HasMany(e => e.Products)
-                      .WithOne(e => e.Category)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(e => e.Name).HasMaxLength(50).IsRequired();
+                entity.HasMany(e => e.Products).WithOne(e => e.Category).OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.Code).HasMaxLength(13).IsRequired();
+                entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+                entity.Property(e => e.Description).HasMaxLength(255).IsRequired(false);
+                entity.Property(e => e.SellPoints).HasPrecision(18, 2).IsRequired();
+                entity.Property(e => e.Weight).HasPrecision(18, 2).IsRequired();
+                entity.Property(e => e.Qtde).HasPrecision(18, 2).IsRequired();
+                entity.Property(e => e.Coast).HasPrecision(18, 2).IsRequired();
+                entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
             });
             base.OnModelCreating(modelBuilder);
         }
