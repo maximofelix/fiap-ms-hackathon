@@ -1,4 +1,5 @@
 using EVSWeb.Application;
+using EVSWeb.Application.Interfaces.Categories;
 using EVSWeb.Application.Interfaces.Products;
 using EVSWeb.Application.Services;
 using EVSWeb.Infrastructure;
@@ -26,6 +27,8 @@ builder.Services.AddDbContext<EVSContext>(options =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

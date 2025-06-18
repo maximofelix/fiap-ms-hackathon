@@ -16,6 +16,6 @@ namespace EVSWeb.Application.Interfaces.Products
         Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(Product product);
         Task UpdateNameAsync(Guid productId, string name);
-        Task<List<Product>> GetProductsByCategoryIdAsync(Guid categ);
+        Task<List<Product>> GetProductsByCategoryIdAsync(Guid categoryId);
     }
 }

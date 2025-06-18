@@ -61,8 +61,8 @@ namespace EVSWeb.Application.DTOs
         public string Name { get; set; } = string.Empty;
     }
 
-    public class DeleteProductDto
-    {
-        public Guid Id { get; set; }
-    }
+    //public class DeleteProductDto
+    //{
+    //    public Guid Id { get; set; }
+    //}
 }

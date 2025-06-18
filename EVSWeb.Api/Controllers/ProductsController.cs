@@ -1,5 +1,6 @@
 using EVSWeb.Application.DTOs;
 using EVSWeb.Application.Interfaces.Products;
+using EVSWeb.Domain.Messages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EVSWeb.Api.Controllers;
@@ -19,6 +20,16 @@ public class ProductsController : ControllerBase
     {
         var products = await _service.GetAllProductsAsync();
         return Ok(products);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllProductsByCategoryIdAsync(Guid categoryId)
+    {
+        var products = await _service.GetProductsByCategoryIdAsync(categoryId);
+        if (products.Any())
+            return Ok(products);
+        else
+            return NotFound(ProductMessages.PRODUCT_BYCATEGORYNOTFOUND);
     }
 
     [HttpGet]

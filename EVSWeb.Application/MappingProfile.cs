@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using EVSWeb.Application.DTOs;
 using EVSWeb.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EVSWeb.Application
 {
@@ -13,9 +8,17 @@ namespace EVSWeb.Application
     {
         public MappingProfile()
         {
+            #region Products
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Product, CreatedProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
+            #endregion
+
+            #region Category
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CreatedCategoryDto>().ReverseMap();
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap(); 
+            #endregion
         }
     }
 }

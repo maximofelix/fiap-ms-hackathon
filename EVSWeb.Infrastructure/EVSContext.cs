@@ -1,5 +1,6 @@
 ﻿using EVSWeb.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace EVSWeb.Infrastructure
 {
@@ -19,10 +20,16 @@ namespace EVSWeb.Infrastructure
             modelBuilder.Entity<Unit>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasMany(e => e.Products)
+                      .WithOne(e => e.Unit)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasMany(e => e.Products)
+                      .WithOne(e => e.Category)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Product>(entity =>
             {
@@ -36,40 +43,48 @@ namespace EVSWeb.Infrastructure
             var exist = this.Products.Any();
             if (!exist)
             {
+                var unities = this.Unities.ToList();
+                if (unities.Any())
+                    this.Unities.RemoveRange(unities);
+                var categories = this.Categories.ToList();
+                if (categories.Any())
+                    this.Categories.RemoveRange(categories);
+                this.SaveChanges();
+
                 var unidade = new Unit
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     Name = "Unidade"
                 };
                 this.Unities.Add(unidade);
 
                 var quilo = new Unit
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     Name = "Quilo"
                 };
                 this.Unities.Add(quilo);
 
                 var nutricao = new Category
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     Name = "Nutrição"
                 };
                 this.Categories.Add(nutricao);
 
                 var bebida = new Category
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Bebida"
+                    //Id = Guid.NewGuid(),
+                    Name = "Bebida",
+                    Description = "Bebidas em geral"
                 };
                 this.Categories.Add(bebida);
 
                 var lanche = new Category
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     Name = "Lanche"
                 };
-                this.SaveChanges();
                 this.Categories.Add(lanche);
                 this.SaveChanges();
 
@@ -117,7 +132,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 3.00M,
                     Price = 6.00M,
                     IsAtive = true,
-                    Unit = quilo,
+                    Unit = unidade,
                     Category = bebida,
                     SellPoints = 1.2M
                 };
@@ -134,7 +149,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 4.00M,
                     Price = 8.00M,
                     IsAtive = true,
-                    Unit = unidade,
+                    Unit = quilo,
                     Category = lanche,
                     SellPoints = 1.5M
                 };

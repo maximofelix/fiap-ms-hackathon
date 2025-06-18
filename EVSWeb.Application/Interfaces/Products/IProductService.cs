@@ -12,6 +12,7 @@ namespace EVSWeb.Application.Interfaces.Products
     {
         Task<IEnumerable<ProductDto>> GetAllProductsAsync();
         Task<ProductDto?> GetProductByIdAsync(Guid productId);
+        Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId);
         Task<bool> IsNameDuplicatedAsync(string name);
         Task AddProductAsync(CreatedProductDto createdProductDto);
         Task UpdateProductAsync(Guid productId, UpdateProductDto updateProductDto);
