@@ -17,12 +17,12 @@ namespace EVSWeb.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Unit>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).HasMaxLength(20).IsRequired();
-                entity.HasMany(e => e.Products).WithOne(e => e.Unit).OnDelete(DeleteBehavior.Restrict);
-            });
+            //modelBuilder.Entity<Unit>(entity =>
+            //{
+            //    entity.HasKey(e => e.Id);
+            //    entity.Property(e => e.Name).HasMaxLength(20).IsRequired();
+            //    entity.HasMany(e => e.Products).WithOne(e => e.Unit).OnDelete(DeleteBehavior.Restrict);
+            //});
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -49,27 +49,27 @@ namespace EVSWeb.Infrastructure
             var exist = this.Products.Any();
             if (!exist)
             {
-                var unities = this.Unities.ToList();
-                if (unities.Any())
-                    this.Unities.RemoveRange(unities);
+                //var unities = this.Unities.ToList();
+                //if (unities.Any())
+                //    this.Unities.RemoveRange(unities);
                 var categories = this.Categories.ToList();
                 if (categories.Any())
                     this.Categories.RemoveRange(categories);
                 this.SaveChanges();
 
-                var unidade = new Unit
-                {
-                    //Id = Guid.NewGuid(),
-                    Name = "Unidade"
-                };
-                this.Unities.Add(unidade);
+                //var unidade = new Unit
+                //{
+                //    //Id = Guid.NewGuid(),
+                //    Name = "Unidade"
+                //};
+                //this.Unities.Add(unidade);
 
-                var quilo = new Unit
-                {
-                    //Id = Guid.NewGuid(),
-                    Name = "Quilo"
-                };
-                this.Unities.Add(quilo);
+                //var quilo = new Unit
+                //{
+                //    //Id = Guid.NewGuid(),
+                //    Name = "Quilo"
+                //};
+                //this.Unities.Add(quilo);
 
                 var nutricao = new Category
                 {
@@ -105,7 +105,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 5.00M,
                     Price = 10.00M,
                     IsAtive = true,
-                    Unit = unidade,
+                    //Unit = unidade,
                     Category = nutricao,
                     SellPoints = 2M
                 };
@@ -121,7 +121,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 5.00M,
                     Price = 10.00M,
                     IsAtive = true,
-                    Unit = unidade,
+                    //Unit = unidade,
                     Category = nutricao,
                     SellPoints = 2M
                 };
@@ -138,7 +138,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 3.00M,
                     Price = 6.00M,
                     IsAtive = true,
-                    Unit = unidade,
+                    //Unit = unidade,
                     Category = bebida,
                     SellPoints = 1.2M
                 };
@@ -155,7 +155,7 @@ namespace EVSWeb.Infrastructure
                     Coast = 4.00M,
                     Price = 8.00M,
                     IsAtive = true,
-                    Unit = quilo,
+                    //Unit = quilo,
                     Category = lanche,
                     SellPoints = 1.5M
                 };
@@ -164,7 +164,7 @@ namespace EVSWeb.Infrastructure
             }
         }
 
-        public virtual DbSet<Unit> Unities { get; set; }
+        //public virtual DbSet<Unit> Unities { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
     }

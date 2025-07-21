@@ -1,13 +1,9 @@
 services:
+  sqlserver-evs:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
   evsweb.api:
     image: ${DOCKER_REGISTRY-}evswebapi
     build:
       context: .
       dockerfile: EVSWeb.Api/Dockerfile
-
-  sqlserver-evs:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-
-networks:
-  minha-rede:
-    driver: bridge

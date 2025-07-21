@@ -59,8 +59,8 @@ public class ProductsController : ControllerBase
     {
         try
         {
-            await _service.AddProductAsync(product);
-            return Ok();
+            var id = await _service.AddProductAsync(product);
+            return Ok(id);
         }
         catch (Exception ex)
         {

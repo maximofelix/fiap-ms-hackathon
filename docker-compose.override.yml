@@ -1,37 +1,38 @@
 services:
-  
   sqlserver-evs:
-    container_name: sqlserver-evs
+    image: mcr.microsoft.com/mssql/server:2022-latest
     hostname: sqlserver-evs
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "2G"
+    container_name: sqlserver-evs
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "2.0"
+    #       memory: "1G"
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=sql@Master
+      - MSSQL_PID=Express
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S sqlserver-evs -U sa -P sql@Master -Q 'SELECT 1' -C"]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - minha-rede
-    restart: unless-stopped
+    restart: always
     ports:
       - "1433:1433"
+    networks:
+      - fasttechfoods-network
     volumes:
       - sql-data:/var/opt/mssql
 
   evsweb.api:
+    image: ${DOCKER_REGISTRY-}evswebapi
+    container_name: stock-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=sqlserver-evs;Database=evsdb02;User Id=sa;Password=sql@Master;Encrypt=False;TrustServerCertificate=True
-      - ConnectionStrings__DbContext=Server=sqlserver-evs;Database=evsdb02;User Id=sa;Password=sql@Master;Encrypt=False;TrustServerCertificate=True
-      
+      - ConnectionStrings__DbContext=Server=sqlserver-evs,1433;Database=FastTechFoodsStock2;User Id=sa;Password=sql@Master;Encrypt=False;TrustServerCertificate=True
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -40,21 +41,18 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-      
     depends_on:
-      - sqlserver-evs #:
-        #condition: service_healthy
-
+      sqlserver-evs:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: EVSWeb.Api/Dockerfile
     networks:
-      - minha-rede
-    restart: unless-stopped
-
+      - fasttechfoods-network
 
 networks:
-  minha-rede:
+  fasttechfoods-network:
     driver: bridge
-      
+
 volumes:
   sql-data:
-  prometheus-data:
-  grafana-data:

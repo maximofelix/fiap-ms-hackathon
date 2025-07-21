@@ -30,6 +30,11 @@ namespace EVSWeb.Infrastructure.Repositories
             if (_evsContext.Categories.Any(o => o.Id == id))
                 throw new Exception(CategoryMessages.CATEGORY_VIOLATIONFK_PRODUTO);
             _evsContext.Categories.Remove(category);
+
+            //category
+            //_evsContext.Categories.Update(category);
+            //await _evsContext.SaveChangesAsync();
+
             await _evsContext.SaveChangesAsync();
         }
 

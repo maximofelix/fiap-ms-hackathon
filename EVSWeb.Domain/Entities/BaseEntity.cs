@@ -16,6 +16,6 @@ namespace EVSWeb.Domain.Entities
         public Guid? CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Guid? UpdatedBy { get; set; }
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
     }
 }

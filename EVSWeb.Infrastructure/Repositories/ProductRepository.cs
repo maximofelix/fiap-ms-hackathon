@@ -26,13 +26,14 @@ namespace EVSWeb.Infrastructure.Repositories
 
         public async Task DeleteProductAsync(Product product)
         {
-            _evsContext.Products.Remove(product);
+            product.IsAtive = false; // Soft delete
+            _evsContext.Products.Update(product);
             await _evsContext.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetAllProductsAsync()
         {
-            return await _evsContext.Products.ToListAsync();
+            return await _evsContext.Products.Where(o => o.IsAtive).ToListAsync();
         }
 
         public async Task<Product?> GetProductByIdAsync(Guid productId)
@@ -42,7 +43,7 @@ namespace EVSWeb.Infrastructure.Repositories
 
         public async Task<List<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
-            return await _evsContext.Products.Where(o => o.Category.Id == categoryId).ToListAsync();
+            return await _evsContext.Products.Where(o => o.Category.Id == categoryId && o.IsAtive).ToListAsync();
         }
 
         public async Task<bool> IsNameDuplicateAsync(string name)

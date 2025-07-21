@@ -9,11 +9,11 @@ namespace EVSWeb.Domain.Entities
 {
     public class Product : BaseEntity
     {
-        //[StringLength(10)]
+        [StringLength(10)]
         public string Code { get; set; } = string.Empty;
-        //[StringLength(100)]
+        [StringLength(100)]
         public string Name { get; set; } = string.Empty;
-        //[StringLength(255)]
+        [StringLength(255)]
         public string Description { get; set; } = string.Empty;
         public decimal Weight { get; set; }
         public decimal SellPoints { get; set; } = 0M;
@@ -21,7 +21,7 @@ namespace EVSWeb.Domain.Entities
         public decimal Coast { get; set; }
         public decimal Price { get; set; }
         public bool IsAtive { get; set; } = true;
-        public Unit Unit { get; set; } = new Unit();
+        //public Unit Unit { get; set; } = new Unit();
         public Category Category { get; set; } = new Category();
 
     }
