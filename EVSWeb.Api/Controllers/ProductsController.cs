@@ -18,18 +18,32 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllProductsAsync()
     {
-        var products = await _service.GetAllProductsAsync();
-        return Ok(products);
+        try
+        {
+            var products = await _service.GetAllProductsAsync();
+            return Ok(products);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllProductsByCategoryIdAsync(Guid categoryId)
     {
-        var products = await _service.GetProductsByCategoryIdAsync(categoryId);
-        if (products.Any())
-            return Ok(products);
-        else
-            return NotFound(ProductMessages.PRODUCT_BYCATEGORYNOTFOUND);
+        try
+        {
+            var products = await _service.GetProductsByCategoryIdAsync(categoryId);
+            if (products.Any())
+                return Ok(products);
+            else
+                return NotFound(ProductMessages.PRODUCT_BYCATEGORYNOTFOUND);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet]

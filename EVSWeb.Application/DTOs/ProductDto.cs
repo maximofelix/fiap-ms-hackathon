@@ -14,12 +14,13 @@ namespace EVSWeb.Application.DTOs
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public string? UrlImage { get; set; }
         public decimal Weight { get; set; }
         public decimal Qtde { get; set; }
         public decimal Coast { get; set; }
         public decimal Price { get; set; }
         public decimal SellPoints { get; set; } = 0M;
-        public bool IsAtive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
         public Guid CategoryId { get; set; }
     }
 
@@ -28,23 +29,25 @@ namespace EVSWeb.Application.DTOs
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public string? UrlImage { get; set; }
         public decimal Weight { get; set; }
         public decimal Qtde { get; set; }
         public decimal Coast { get; set; }
         public decimal Price { get; set; }
         public decimal SellPoints { get; set; } = 0M;
-        public bool IsAtive { get; set; } = true;
         public Guid CategoryId { get; set; }
+        public Guid? CreatedBy { get; set; }
     }
 
     public class UpdateProductDto
     {
-        public Guid Id { get; set; }
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public string? UrlImage { get; set; }
         public decimal Weight { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid? UpdatedBy { get; set; }
     }
 
     public class ProductUpdateNameDto

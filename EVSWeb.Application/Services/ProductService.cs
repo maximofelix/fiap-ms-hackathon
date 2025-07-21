@@ -29,25 +29,16 @@ namespace EVSWeb.Application.Services
 
         public async Task<Guid> AddProductAsync(CreatedProductDto createdProductDto)
         {
-            var product = new Product
-            {
-                Code = createdProductDto.Code,
-                Name = createdProductDto.Name,
-                Description = createdProductDto.Description,
-                Weight = createdProductDto.Weight,
-                SellPoints = createdProductDto.SellPoints,
-                Qtde = createdProductDto.Qtde,
-                Coast = createdProductDto.Coast,
-                Price = createdProductDto.Price,
-                IsAtive = createdProductDto.IsAtive
-            };
+            createdProductDto.Description = createdProductDto.Description ?? "";
+            createdProductDto.UrlImage = createdProductDto.UrlImage ?? "";
 
+            var product = _mapper.Map<Product>(createdProductDto);
 
-            product.Category = await _repoCategory.GetCategoryByIdAsync(createdProductDto.CategoryId);
-            if (product.Category == null)
+            var category = await _repoCategory.GetCategoryByIdAsync(createdProductDto.CategoryId);
+            if (category == null)
                 throw new KeyNotFoundException("A chave informada não corresponde a uma Categoria válida", new Exception($"O Identificador {createdProductDto.CategoryId} não existe em Categories"));
+            product.Category = category;
 
-            product.CreatedBy = null; // #todo: GetConnectedUser
             product.CreatedAt = DateTime.Now;
             product.UpdatedBy = product.CreatedBy;
             product.UpdatedAt = DateTime.Now;
@@ -84,8 +75,9 @@ namespace EVSWeb.Application.Services
         public async Task UpdateNameProductAsync(Guid productId, string name)
         {
             var product = await _repo.GetProductByIdAsync(productId);
+            if (product == null) throw new KeyNotFoundException(ProductMessages.PRODUCT_NOTFOUND_BYID(productId));
+            
             product.Name = name;
-            product.UpdatedBy = null; // #todo: GetConnectedUser
             product.UpdatedAt = DateTime.Now;
             await _repo.UpdateProductAsync(product);
         }
@@ -94,8 +86,19 @@ namespace EVSWeb.Application.Services
         {
             var product = await _repo.GetProductByIdAsync(productId);
             if (product is null) throw new KeyNotFoundException(ProductMessages.PRODUCT_NOTFOUND);
+
+            if (product.Category.Id != updateProductDto.CategoryId)
+            {
+                var category = await _repoCategory.GetCategoryByIdAsync(updateProductDto.CategoryId);
+                if (category == null)
+                    throw new KeyNotFoundException("A chave informada não corresponde a uma Categoria válida", new Exception($"O Identificador {updateProductDto.CategoryId} não existe em Categories"));
+                product.Category = category;
+            }
+
+            updateProductDto.Description = updateProductDto.Description ?? "";
+            updateProductDto.UrlImage = updateProductDto.UrlImage ?? "";
+
             _mapper.Map(updateProductDto, product);
-            product.UpdatedBy = null; // #todo: GetConnectedUser
             product.UpdatedAt = DateTime.Now;
             await _repo.UpdateProductAsync(product);
         }

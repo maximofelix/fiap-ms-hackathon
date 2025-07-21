@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVSWeb.Tests", "EVSWeb.Test
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "requests", "requests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C11BA361-775D-40A1-946E-513D4F9C8D6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF4B65B3-7A6E-431E-8EF9-F62106CC0905} = {C11BA361-775D-40A1-946E-513D4F9C8D6A}
+		{82C6632D-37ED-4041-B66B-A4CD77CAAE6D} = {C11BA361-775D-40A1-946E-513D4F9C8D6A}
+		{2B98DA18-9EDA-4325-BF3E-BAD86EF91706} = {C11BA361-775D-40A1-946E-513D4F9C8D6A}
+		{CAD0CBAC-4A0C-42CE-85CD-6D3BB8D00006} = {C11BA361-775D-40A1-946E-513D4F9C8D6A}
+		{C7FD9C10-ADAD-4BAD-B186-4054927FDD3F} = {C11BA361-775D-40A1-946E-513D4F9C8D6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A6E60948-5843-4A16-A0C8-E82CFBA0FDAF}

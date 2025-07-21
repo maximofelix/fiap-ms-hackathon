@@ -25,8 +25,8 @@ namespace EVSWeb.Application.DTOs
         public string? Description { get; set; } = string.Empty;
     }
 
-    //public class DeleteCategoryDto
-    //{
-    //    public Guid Id { get; set; }
-    //}
+    public class DeleteCategoryDto
+    {
+        public Guid Id { get; set; }
+    }
 }

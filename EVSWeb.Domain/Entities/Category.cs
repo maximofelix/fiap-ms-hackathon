@@ -17,5 +17,6 @@ namespace EVSWeb.Domain.Entities
 
         [InverseProperty("Category")]
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        public bool IsActive { get; set; } = true;
     }
 }

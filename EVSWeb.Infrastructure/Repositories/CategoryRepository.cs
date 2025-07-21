@@ -29,12 +29,8 @@ namespace EVSWeb.Infrastructure.Repositories
             var id = category.Id;
             if (_evsContext.Categories.Any(o => o.Id == id))
                 throw new Exception(CategoryMessages.CATEGORY_VIOLATIONFK_PRODUTO);
-            _evsContext.Categories.Remove(category);
-
-            //category
-            //_evsContext.Categories.Update(category);
-            //await _evsContext.SaveChangesAsync();
-
+            category.IsActive = false; // Soft delete
+            _evsContext.Categories.Update(category);
             await _evsContext.SaveChangesAsync();
         }
 

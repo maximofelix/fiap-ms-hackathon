@@ -15,12 +15,13 @@ namespace EVSWeb.Domain.Entities
         public string Name { get; set; } = string.Empty;
         [StringLength(255)]
         public string Description { get; set; } = string.Empty;
+        public string UrlImage { get; set; } = string.Empty;
         public decimal Weight { get; set; }
         public decimal SellPoints { get; set; } = 0M;
         public decimal Qtde { get; set; }
         public decimal Coast { get; set; }
         public decimal Price { get; set; }
-        public bool IsAtive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
         //public Unit Unit { get; set; } = new Unit();
         public Category Category { get; set; } = new Category();
 

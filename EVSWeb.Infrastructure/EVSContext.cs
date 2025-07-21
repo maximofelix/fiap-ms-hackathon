@@ -104,7 +104,7 @@ namespace EVSWeb.Infrastructure
                     Qtde = 1,
                     Coast = 5.00M,
                     Price = 10.00M,
-                    IsAtive = true,
+                    IsActive = true,
                     //Unit = unidade,
                     Category = nutricao,
                     SellPoints = 2M
@@ -120,7 +120,7 @@ namespace EVSWeb.Infrastructure
                     Qtde = 1,
                     Coast = 5.00M,
                     Price = 10.00M,
-                    IsAtive = true,
+                    IsActive = true,
                     //Unit = unidade,
                     Category = nutricao,
                     SellPoints = 2M
@@ -137,7 +137,7 @@ namespace EVSWeb.Infrastructure
                     Qtde = 1,
                     Coast = 3.00M,
                     Price = 6.00M,
-                    IsAtive = true,
+                    IsActive = true,
                     //Unit = unidade,
                     Category = bebida,
                     SellPoints = 1.2M
@@ -154,7 +154,7 @@ namespace EVSWeb.Infrastructure
                     Qtde = 1,
                     Coast = 4.00M,
                     Price = 8.00M,
-                    IsAtive = true,
+                    IsActive = true,
                     //Unit = quilo,
                     Category = lanche,
                     SellPoints = 1.5M
