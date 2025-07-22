@@ -68,13 +68,61 @@ public class ProductsController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetProductsByNameAsync(string name)
+    {
+        try
+        {
+            var products = await _service.GetProductByNameAsync(name);
+            if (products != null)
+                return Ok(products);
+            else
+                return NotFound("Nenhum produto encontrado com o nome indicado");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                Mensagem = "Erro ao Pesquisar o Produto",
+                Erro = ex.Message,
+                Detalhe = ex.InnerException?.Message
+            });
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetProductsByCategoryAsync(Guid categoryId)
+    {
+        try
+        {
+            var products = await _service.GetProductsByCategoryIdAsync(categoryId);
+            if (products != null)
+                return Ok(products);
+            else
+                return NotFound("Nenhumm produto encontrado com a categoria indicada");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                Mensagem = "Erro ao Pesquisar o Produto",
+                Erro = ex.Message,
+                Detalhe = ex.InnerException?.Message
+            });
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddProductAsync(CreatedProductDto product)
     {
         try
         {
             var id = await _service.AddProductAsync(product);
-            return Ok(id);
+            return Ok(new
+            {
+                Message = "Item cadastrado com sucesso", 
+                Id = id
+            });
         }
         catch (Exception ex)
         {
@@ -93,7 +141,10 @@ public class ProductsController : ControllerBase
         try
         {
             await _service.UpdateProductAsync(id, product);
-            return Ok();
+            return Ok(new
+            {
+                Message = "Item atualizado com sucesso"
+            });
         }
         catch (Exception ex)
         {

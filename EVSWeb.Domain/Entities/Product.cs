@@ -22,7 +22,6 @@ namespace EVSWeb.Domain.Entities
         public decimal Coast { get; set; }
         public decimal Price { get; set; }
         public bool IsActive { get; set; } = true;
-        //public Unit Unit { get; set; } = new Unit();
         public Category Category { get; set; } = new Category();
 
     }

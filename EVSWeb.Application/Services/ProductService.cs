@@ -111,5 +111,14 @@ namespace EVSWeb.Application.Services
             else
                 return _mapper.Map<IEnumerable<ProductDto>>(data);
         }
+
+        public async Task<IEnumerable<ProductDto>> GetProductByNameAsync(string name)
+        {
+            var data = await _repo.GetProductByNameAsync(name);
+            if (data == null || !data.Any())
+                return new List<ProductDto>();
+            else
+                return _mapper.Map<IEnumerable<ProductDto>>(data);
+        }
     }
 }

@@ -41,6 +41,11 @@ namespace EVSWeb.Infrastructure.Repositories
             return await _evsContext.Products.FindAsync(productId);
         }
 
+        public async Task<List<Product>> GetProductByNameAsync(string name)
+        {
+            return await _evsContext.Products.Where(o => o.Name.Contains(name) && o.IsActive).ToListAsync();
+        }
+
         public async Task<List<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
             return await _evsContext.Products.Where(o => o.Category.Id == categoryId && o.IsActive).ToListAsync();
